@@ -1,20 +1,20 @@
-package drafter
+package main
 
 /*
 #cgo CFLAGS: -I./drafter/src/
-#cgo LDFLAGS: -lstdc++ -ldrafter -lsos -lmarkdownparser -lsnowcrash -lsundown -L"./drafter/build/out/Release/" -L"./drafter/build/out/Release/obj.target/"
+#cgo LDFLAGS: -lc++ -ldrafter -lsos -lmarkdownparser -lsnowcrash -lsundown -L"./drafter/build/out/Release/" -L"./drafter/build/out/Release/obj.target/"
 #include <stdlib.h>
 #include <stdio.h>
 #include "drafter.h"
 */
 import "C"
 import (
-	"errors"
 	"unsafe"
 	"fmt"
+	"github.com/k0kubun/pp"
 )
 
-func ParseBlueprint(source string, options DrafterOptions) (string, error) {
+func ParseBlueprintTo(source string, options DrafterOptions) (string, error) {
 	csrc := C.CString(source)
 	defer C.free(unsafe.Pointer(csrc))
 	var out string

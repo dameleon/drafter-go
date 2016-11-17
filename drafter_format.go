@@ -1,4 +1,4 @@
-package drafter
+package main
 
 type DrafterFormat int
 
