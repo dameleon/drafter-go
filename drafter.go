@@ -11,6 +11,7 @@ import "C"
 import (
 	"errors"
 	"unsafe"
+	"fmt"
 )
 
 func ParseBlueprint(source string, options DrafterOptions) (string, error) {
@@ -22,9 +23,9 @@ func ParseBlueprint(source string, options DrafterOptions) (string, error) {
 	copt := C.drafter_options{}
 	copt.sourcemap = C.bool(options.sourcemap)
 	copt.format = newCDrafterFormat(options.drafterFormat)
-	res := int(C.drafter_parse_blueprint_to(csrc, &cout, copt))
-	if res != 0 {
-		return "", errors.New("not parsed")
+	res := newDrafterErrorCode(int(C.drafter_parse_blueprint_to(csrc, &cout, copt)))
+	if res != DRAFTER_NO_ERROR {
+		return "", fmt.Errorf("parse error: %s", res)
 	}
 	return C.GoString(cout), nil
 }
