@@ -205,8 +205,6 @@ func (e *Element) ContentAsResourceElement() Resource {
 	return res
 }
 
-func (e *Element)
-
 type ElementAttributes struct {
 	Name string
 }
